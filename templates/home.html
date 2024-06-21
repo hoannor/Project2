@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomePage</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .sheet-button {
+            display: inline-block;
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+        }
+        .sheet-button:hover {
+            background-color: #0056b3;
+        }
+        .sheet-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .sheet-card {
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Temperature and Humidity raspberry center</h1>
+        <form action="{{ url_for('create_datasheet') }}" method="post" class="mt-4">
+            <div class="form-group">
+                <label for="sheet_name">Name of Database:</label>
+                <input type="text" id="sheet_name" name="sheet_name" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">confirm</button>
+        </form>
+
+        <h2 class="mt-5">Owner sensor:</h2>
+        <div class="sheet-list">
+            {% for sheet in saved_sheets %}
+                <div class="card sheet-card">
+                    <div class="card-body">
+                        <a class="sheet-button" href="{{ url_for('data_page', sheet_name=sheet) }}">{{ sheet }}</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
